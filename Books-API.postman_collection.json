@@ -1,0 +1,241 @@
+{
+    "info": {
+        "name": "Books API",
+        "description": "A complete RESTful API for managing books with authentication",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "item": [
+                {
+                    "name": "Register User",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"username\": \"testuser\",\n    \"email\": \"test@example.com\",\n    \"password\": \"password123\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/auth/register",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "auth", "register"]
+                        }
+                    }
+                },
+                {
+                    "name": "Login User",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"password123\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/auth/login",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "auth", "login"]
+                        }
+                    }
+                },
+                {
+                    "name": "Get User Profile",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/auth/profile",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "auth", "profile"]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Books",
+            "item": [
+                {
+                    "name": "Create Book",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"title\": \"The Great Gatsby\",\n    \"author\": \"F. Scott Fitzgerald\",\n    \"publishedDate\": \"1925-04-10\",\n    \"numberOfPages\": 180,\n    \"isbn\": \"978-0743273565\",\n    \"genres\": [\"Fiction\"],\n    \"description\": \"A story of decadence and excess...\",\n    \"price\": 9.99,\n    \"language\": \"English\",\n    \"publisher\": \"Scribner\",\n    \"tags\": [\"classic\", \"american-literature\"]\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/books",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "books"]
+                        }
+                    }
+                },
+                {
+                    "name": "Get All Books",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{baseUrl}}/api/books?page=1&limit=10&genre=Fiction&sort=rating",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "books"],
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "10"
+                                },
+                                {
+                                    "key": "genre",
+                                    "value": "Fiction"
+                                },
+                                {
+                                    "key": "sort",
+                                    "value": "rating"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Book by ID",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{baseUrl}}/api/books/{{bookId}}",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "books", "{{bookId}}"]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Book",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"price\": 14.99,\n    \"inStock\": false\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/books/{{bookId}}",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "books", "{{bookId}}"]
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Book",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/books/{{bookId}}",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "books", "{{bookId}}"]
+                        }
+                    }
+                },
+                {
+                    "name": "Add Review",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"rating\": 5,\n    \"comment\": \"Excellent book, highly recommended!\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/books/{{bookId}}/reviews",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "books", "{{bookId}}", "reviews"]
+                        }
+                    }
+                },
+                {
+                    "name": "Search Books",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{baseUrl}}/api/books/search?q=gatsby",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "books", "search"],
+                            "query": [
+                                {
+                                    "key": "q",
+                                    "value": "gatsby"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://localhost:3000"
+        },
+        {
+            "key": "token",
+            "value": "your_jwt_token_here"
+        },
+        {
+            "key": "bookId",
+            "value": "book_id_here"
+        }
+    ]
+} 
